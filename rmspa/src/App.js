@@ -1,32 +1,37 @@
-import logo from './logo.svg';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 
 
 export default function App() {
-  const [currentPage, setPage] = useState(1);
+  const [apiQuery, setApiQuery] = useState({
+    currentPage: 1,
+    name: ""
+  });
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character/?page=${currentPage}&name=rick`)
+    fetch(`https://rickandmortyapi.com/api/character/?` +
+      `page=${apiQuery.currentPage}&` + 
+      `name=${apiQuery.name}`)
       .then(response => response.json())
       .then(data => setCharacters(data.results));
-  }, [currentPage]);
-
-  console.log(characters);
+  }, [apiQuery]);
 
   return (
     <>
-      {characters.map(profile => Card(profile))}
-      <button onClick={() => setPage(currentPage + 1)}>
-        Next
-      </button>
+
+      <SearchNameBox setApiQuery={setApiQuery}/>
+
+      {characters.map(profile => MakeACard(profile))}
+
+      <ButtonNext apiQuery={apiQuery} setApiQuery={setApiQuery} />
+
     </>
   );
 }
 
-function Card(profile){
+function MakeACard(profile){
   return (
     <>
       <div>{profile.name}</div>
@@ -35,7 +40,36 @@ function Card(profile){
 
 }
 
+function SearchNameBox({setApiQuery}){
+  const searchRef = useRef(null);
+  return (
+    <>
+      <input type="search" ref={searchRef} />
+      <button onClick={() => {
+        setApiQuery({
+          currentPage: 1,
+          name: searchRef.current.value
+        });
+      }}>
+        Search
+      </button>
+    </>
+  )
+}
 
+function ButtonNext ({apiQuery, setApiQuery}){
+    return (
+    <>
+      <button onClick={() => {
+        setApiQuery({
+          ...apiQuery,
+          currentPage: apiQuery.currentPage + 1
+        });
+      }}>
+        Next
+      </button>
+    </>
+  )
 
-
+}
 
