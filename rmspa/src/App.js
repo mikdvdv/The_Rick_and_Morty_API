@@ -15,9 +15,11 @@ export default function App() {
     fetch(apiQuery)
       .then(response => response.json())
       .then((data) => {
-        setCharacters(data.results);
-        setPagePrev(data.info.prev);
-        setPageNext(data.info.next);
+        if (!data.error) {
+          setCharacters(data.results);
+          setPagePrev(data.info.prev);
+          setPageNext(data.info.next);
+        }
   });
   }, [apiQuery]);
 
