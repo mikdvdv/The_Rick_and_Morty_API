@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: #132e4d;
 }
 
 .App {
@@ -116,7 +117,11 @@
 }
 
 .briefCard__description:hover {
-  transform: translateY(-40%);
+  transform: translateY(-50%);
+}
+
+.briefCard__description span {
+  font-weight: 600;
 }
 
 .NavBar {

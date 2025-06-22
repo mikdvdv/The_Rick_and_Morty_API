@@ -72,7 +72,8 @@ function SearchNameBox({setApiQuery}){
   return (
     <>
       <div className="SearchNameBox">
-        <input type="search" ref={searchRef} />
+        <input type="search" placeholder="Enter the name of a character"
+          ref={searchRef} />
         <button onClick={() => {
           setApiQuery( `https://rickandmortyapi.com/api/character/?` +
             `name=${searchRef.current.value}`);
