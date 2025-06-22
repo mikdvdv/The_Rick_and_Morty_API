@@ -20,7 +20,7 @@ export default function App() {
           setPagePrev(data.info.prev);
           setPageNext(data.info.next);
         }
-  });
+      });
   }, [apiQuery]);
 
   return (
@@ -79,7 +79,7 @@ function SearchNameBox({setApiQuery}){
         <button onClick={() => {
           setApiQuery( `https://rickandmortyapi.com/api/character/?` +
             `name=${searchRef.current.value}`);
-          }}>
+        }}>
           Search
         </button>
       </div>
@@ -92,13 +92,14 @@ function NavBar ({setApiQuery, pagePrev, pageNext}) {
     return (
   <>
     <div className="NavBar">
+
       <button onClick={() => {
         if (pagePrev) {
           setApiQuery(pagePrev);
         }
-        }}>
-          {'<< '}Prev
-        </button>
+      }}>
+        {'<< '}Prev
+      </button>
 
       <button onClick={() => {
         if (pageNext) {
@@ -107,6 +108,7 @@ function NavBar ({setApiQuery, pagePrev, pageNext}) {
       }}>
         Next{' >>'}
       </button>
+
     </div>
 
   </>
