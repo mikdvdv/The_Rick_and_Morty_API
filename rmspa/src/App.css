@@ -36,3 +36,49 @@
     transform: rotate(360deg);
   }
 }
+
+
+.content {
+  display: grid;
+  justify-content: center;
+}
+
+.header {
+  margin-top: 20px;
+  height: 100px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.logo {
+  height: inherit;
+}
+
+.SearchNameBox {
+  align-self: center;
+  justify-self: end;
+}
+
+.SearchNameBox > input {
+  height: 30px;
+  width: 250px;
+  font-size: 15px;
+}
+
+.SearchNameBox > button {
+  height: 30px;
+  width: 80px;
+  font-size: 15px;
+}
+
+.table {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px 10px;
+}
+
+.NavBar {
+  margin: 20px 0px;
+  display: flex;
+  justify-content: space-between;
+}

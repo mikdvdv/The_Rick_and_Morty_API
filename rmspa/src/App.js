@@ -21,12 +21,24 @@ export default function App() {
   return (
     <>
 
-      <SearchNameBox setApiQuery={setApiQuery}/>
+      <div className="content">
 
-      {characters.map(profile => MakeACard(profile))}
+        <div className="header">
+          <Logo />
+          <SearchNameBox setApiQuery={setApiQuery}/>
+        </div>
 
-      <ButtonNext apiQuery={apiQuery} setApiQuery={setApiQuery} />
+        <div className="table">
+          {characters.map(profile => MakeACard(profile))}
+        </div>
+      
+        {/* TODO: replace things below with a component containing two buttons */}
+        {/* <ButtonPrev apiQuery={apiQuery} setApiQuery={setApiQuery} />
+        <ButtonNext apiQuery={apiQuery} setApiQuery={setApiQuery} /> */}
 
+        <NavBar apiQuery={apiQuery} setApiQuery={setApiQuery} />
+
+      </div>
     </>
   );
 }
@@ -34,32 +46,57 @@ export default function App() {
 function MakeACard(profile){
   return (
     <>
-      <div>{profile.name}</div>
+      <div className="briefCard">
+        <h3>{profile.name}</h3>
+        <img src={profile.image} />
+        <p><span>Species:</span>{profile.species}</p>
+        <p><span>State:</span>{profile.status}</p>
+        <p><span>Location:</span>{profile.location.name}</p>
+      </div>
     </>
   )
 
+}
+
+function Logo(){
+  return (
+    <img className="logo" src="logo.webp"></img>
+  )
 }
 
 function SearchNameBox({setApiQuery}){
   const searchRef = useRef(null);
   return (
     <>
-      <input type="search" ref={searchRef} />
-      <button onClick={() => {
-        setApiQuery({
-          currentPage: 1,
-          name: searchRef.current.value
-        });
-      }}>
-        Search
-      </button>
+      <div className="SearchNameBox">
+        <input type="search" ref={searchRef} />
+        <button onClick={() => {
+          setApiQuery({
+            currentPage: 1,
+            name: searchRef.current.value
+          });
+        }}>
+          Search
+        </button>
+      </div>
+      
     </>
   )
 }
 
-function ButtonNext ({apiQuery, setApiQuery}){
+function NavBar ({apiQuery, setApiQuery}) {
     return (
-    <>
+  <>
+    <div className="NavBar">
+      <button onClick={() => {
+          setApiQuery({
+            ...apiQuery,
+            currentPage: apiQuery.currentPage - 1
+          });
+        }}>
+          Prev
+        </button>
+
       <button onClick={() => {
         setApiQuery({
           ...apiQuery,
@@ -68,8 +105,40 @@ function ButtonNext ({apiQuery, setApiQuery}){
       }}>
         Next
       </button>
-    </>
-  )
+    </div>
 
+  </>
+)
 }
 
+function ButtonNext ({apiQuery, setApiQuery}){
+  return (
+  <>
+    <button onClick={() => {
+      setApiQuery({
+        ...apiQuery,
+        currentPage: apiQuery.currentPage + 1
+      });
+    }}>
+      Next
+    </button>
+  </>
+)
+}
+
+function ButtonPrev ({apiQuery, setApiQuery}){
+  if (apiQuery.currentPage > 1) {
+    return (
+    <>
+      <button onClick={() => {
+        setApiQuery({
+          ...apiQuery,
+          currentPage: apiQuery.currentPage - 1
+        });
+      }}>
+        Prev
+      </button>
+    </>
+  )
+  }
+}
