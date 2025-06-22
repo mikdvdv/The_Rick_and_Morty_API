@@ -4,18 +4,21 @@ import './App.css';
 
 
 export default function App() {
-  const [apiQuery, setApiQuery] = useState({
-    currentPage: 1,
-    name: ""
-  });
+  const [apiQuery, setApiQuery] = useState(
+    `https://rickandmortyapi.com/api/character/?`
+  );
   const [characters, setCharacters] = useState([]);
+  const [pagePrev, setPagePrev] = useState(null);
+  const [pageNext, setPageNext] = useState(null);
 
   useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character/?` +
-      `page=${apiQuery.currentPage}&` + 
-      `name=${apiQuery.name}`)
+    fetch(apiQuery)
       .then(response => response.json())
-      .then(data => setCharacters(data.results));
+      .then((data) => {
+        setCharacters(data.results);
+        setPagePrev(data.info.prev);
+        setPageNext(data.info.next);
+  });
   }, [apiQuery]);
 
   return (
@@ -32,7 +35,8 @@ export default function App() {
           {characters.map(profile => MakeACard(profile))}
         </div>
 
-        <NavBar apiQuery={apiQuery} setApiQuery={setApiQuery} />
+        <NavBar setApiQuery={setApiQuery} 
+          pagePrev={pagePrev} pageNext={pageNext}/>
 
       </div>
     </>
@@ -70,11 +74,9 @@ function SearchNameBox({setApiQuery}){
       <div className="SearchNameBox">
         <input type="search" ref={searchRef} />
         <button onClick={() => {
-          setApiQuery({
-            currentPage: 1,
-            name: searchRef.current.value
-          });
-        }}>
+          setApiQuery( `https://rickandmortyapi.com/api/character/?` +
+            `name=${searchRef.current.value}`);
+          }}>
           Search
         </button>
       </div>
@@ -83,24 +85,22 @@ function SearchNameBox({setApiQuery}){
   )
 }
 
-function NavBar ({apiQuery, setApiQuery}) {
+function NavBar ({setApiQuery, pagePrev, pageNext}) {
     return (
   <>
     <div className="NavBar">
       <button onClick={() => {
-          setApiQuery({
-            ...apiQuery,
-            currentPage: apiQuery.currentPage - 1
-          });
+        if (pagePrev) {
+          setApiQuery(pagePrev);
+        }
         }}>
           {'<< '}Prev
         </button>
 
       <button onClick={() => {
-        setApiQuery({
-          ...apiQuery,
-          currentPage: apiQuery.currentPage + 1
-        });
+        if (pageNext) {
+          setApiQuery(pageNext);
+        }
       }}>
         Next{' >>'}
       </button>
