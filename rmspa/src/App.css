@@ -1,5 +1,12 @@
+*, ::after, ::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .App {
   text-align: center;
+  margin: 0px;
 }
 
 .App-logo {
@@ -38,9 +45,15 @@
 }
 
 
-.content {
+#root {
   display: grid;
   justify-content: center;
+  /* background-image: url("../public/wall.png"); */
+  background-color: #d7dee0;
+}
+
+.content {
+  padding: 0px 25px;
 }
 
 .header {
@@ -60,6 +73,7 @@
 }
 
 .SearchNameBox > input {
+  background-color: #f8fcfd;
   height: 30px;
   width: 250px;
   font-size: 15px;
@@ -72,13 +86,47 @@
 }
 
 .table {
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px 10px;
+}
+
+.briefCard {
+  width: 250px;
+  height: 300px;
+  background-color: #ecf3f5;
+  border-width: 10px;
+  border-color: #ecf3f5;
+  border-style: solid;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.briefCard > img {
+  width: inherit;
+}
+
+.briefCard__description {
+  padding: 0 10px;
+  height: 250px;
+  background-color: #ecf3f5;
+  transition: 0.2s;
+
+}
+
+.briefCard__description:hover {
+  transform: translateY(-40%);
 }
 
 .NavBar {
   margin: 20px 0px;
   display: flex;
   justify-content: space-between;
+}
+
+.NavBar > button {
+  height: 30px;
+  width: 80px;
+  font-size: 15px;
 }

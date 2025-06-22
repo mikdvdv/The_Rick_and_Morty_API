@@ -31,10 +31,6 @@ export default function App() {
         <div className="table">
           {characters.map(profile => MakeACard(profile))}
         </div>
-      
-        {/* TODO: replace things below with a component containing two buttons */}
-        {/* <ButtonPrev apiQuery={apiQuery} setApiQuery={setApiQuery} />
-        <ButtonNext apiQuery={apiQuery} setApiQuery={setApiQuery} /> */}
 
         <NavBar apiQuery={apiQuery} setApiQuery={setApiQuery} />
 
@@ -47,11 +43,14 @@ function MakeACard(profile){
   return (
     <>
       <div className="briefCard">
-        <h3>{profile.name}</h3>
         <img src={profile.image} />
-        <p><span>Species:</span>{profile.species}</p>
-        <p><span>State:</span>{profile.status}</p>
-        <p><span>Location:</span>{profile.location.name}</p>
+        <div className="briefCard__description">
+          <h3>{profile.name}</h3>
+          <p><span>Species:</span> {profile.species}</p>
+          <p><span>State:</span> {profile.status}</p>
+          <p><span>Location:</span> {profile.location.name}</p>
+        </div>
+        
       </div>
     </>
   )
@@ -94,7 +93,7 @@ function NavBar ({apiQuery, setApiQuery}) {
             currentPage: apiQuery.currentPage - 1
           });
         }}>
-          Prev
+          {'<< '}Prev
         </button>
 
       <button onClick={() => {
@@ -103,42 +102,10 @@ function NavBar ({apiQuery, setApiQuery}) {
           currentPage: apiQuery.currentPage + 1
         });
       }}>
-        Next
+        Next{' >>'}
       </button>
     </div>
 
   </>
 )
-}
-
-function ButtonNext ({apiQuery, setApiQuery}){
-  return (
-  <>
-    <button onClick={() => {
-      setApiQuery({
-        ...apiQuery,
-        currentPage: apiQuery.currentPage + 1
-      });
-    }}>
-      Next
-    </button>
-  </>
-)
-}
-
-function ButtonPrev ({apiQuery, setApiQuery}){
-  if (apiQuery.currentPage > 1) {
-    return (
-    <>
-      <button onClick={() => {
-        setApiQuery({
-          ...apiQuery,
-          currentPage: apiQuery.currentPage - 1
-        });
-      }}>
-        Prev
-      </button>
-    </>
-  )
-  }
 }
