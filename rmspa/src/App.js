@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import './App.css';
+// import './style/App.css';
 
 
 
@@ -16,6 +16,7 @@ export default function App() {
       .then(response => response.json())
       .then((data) => {
         if (!data.error) {
+          console.log(data);
           setCharacters(data.results);
           setPagePrev(data.info.prev);
           setPageNext(data.info.next);
@@ -26,38 +27,51 @@ export default function App() {
   return (
     <>
 
-      <div className="content">
+      {/* <div className="content"> */}
 
-        <div className="header">
+        <header className="header mt-10">
           <Logo />
           <SearchNameBox setApiQuery={setApiQuery}/>
-        </div>
+        </header>
 
-        <div className="table">
+        <main className="table">
           {characters.map(profile => MakeACard(profile))}
-        </div>
+        </main>
 
-        <NavBar setApiQuery={setApiQuery} 
-          pagePrev={pagePrev} pageNext={pageNext}/>
+        <footer>
+          <NavBar setApiQuery={setApiQuery} 
+            pagePrev={pagePrev} pageNext={pageNext}/>
+        </footer>
+        
 
-      </div>
+      {/* </div> */}
     </>
   );
 }
 
 function MakeACard(profile){
+  function handleClick(){
+    console.log(profile);
+    return (
+      <>
+        <div className='extendedCard'>
+
+        </div>
+      </>
+    )
+  }
   return (
     <>
-      <div className="briefCard">
+      <article className="briefCard" onClick={handleClick}>
         <img src={profile.image} />
         <div className="briefCard__description">
-          <h3>{profile.name}</h3>
-          <p><span>Species:</span> {profile.species}</p>
-          <p><span>State:</span> {profile.status}</p>
-          <p><span>Location:</span> {profile.location.name}</p>
+          <h6>{profile.name}</h6>
+          <div><span>Species:</span> {profile.species}</div>
+          <div><span>State:</span> {profile.status}</div>
+          <div><span>Location:</span> {profile.location.name}</div>
         </div>
         
-      </div>
+      </article>
     </>
   )
 
@@ -73,7 +87,7 @@ function SearchNameBox({setApiQuery}){
   const searchRef = useRef(null);
   return (
     <>
-      <div className="SearchNameBox">
+      <form className="SearchNameBox ml-20"  role="search">
         <input type="search" placeholder="Enter the name of a character"
           ref={searchRef} />
         <button onClick={() => {
@@ -82,7 +96,7 @@ function SearchNameBox({setApiQuery}){
         }}>
           Search
         </button>
-      </div>
+      </form>
       
     </>
   )

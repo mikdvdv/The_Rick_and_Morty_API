@@ -1,0 +1,56 @@
+#root {
+  display: grid;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 3rem;
+}
+
+.table {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px 10px;
+}
+
+.briefCard {
+  width: 15rem;
+  height: 15.5rem;
+  overflow: hidden; 
+}
+
+.briefCard > img {
+  width: inherit;
+  transition: 0.2s;
+}
+
+.briefCard > img:has( + .briefCard__description:hover) {
+  transform: translateY(-13rem);
+  opacity: 0%;
+
+}
+
+.briefCard__description {
+  height: 17rem;
+  transition: 0.2s;
+
+}
+
+.briefCard__description:hover {
+  transform: translateY(-13rem);
+}
+
+.briefCard__description span {
+  font-weight: 600;
+}
+
+.NavBar {
+  display: flex;
+  justify-content: space-between;
+}
