@@ -93,8 +93,8 @@ function MakeACard(profile, setExtendedCardClass, setExtendedCardContent){
   }
   return (
     <>
-      <article className="briefCard" onClick={handleClick}>
-        <img src={profile.image} />
+      <article className="briefCard">
+        <img src={profile.image}  onClick={handleClick}/>
         <div className="briefCard__description">
           <h6>{profile.name}</h6>
           <div><span>Species:</span> {profile.species}</div>
