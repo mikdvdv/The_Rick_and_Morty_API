@@ -55,7 +55,19 @@
   left: 0px;
   height: 100vh;
   width: 100vw;
-  /* background-color; */
+  background-color: rgba(0, 0, 0, 0.8);
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+.extendedCard__content {
+  display: grid;
+  width: fit-content;
+  grid-template-columns: 14rem minmax(14rem, max-content);
+  grid-gap: 2rem;
+  background-color: var(--pico-background-color);
+  padding-right: 2rem;
 }
 
 .NavBar {

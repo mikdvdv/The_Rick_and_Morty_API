@@ -40,6 +40,10 @@ export default function App() {
     setExtendedCardClass("extendedCard, display-none");
   }
 
+  function disablePropagation(event){
+    event.stopPropagation();
+  }
+
   return (
     <>
 
@@ -49,18 +53,26 @@ export default function App() {
         </header>
 
         <main className="table">
-          <article className={extendedCardClass}>
-            <img src={extendedCardContent.image} />
-            <div><span>Name:</span> {extendedCardContent.name}</div>
-            <div><span>Gender:</span> {extendedCardContent.gender}</div>
-            <div><span>Species:</span> {extendedCardContent.species}</div>
-            <div><span>Status:</span> {extendedCardContent.status}</div>
-            <div><span>Location:</span> {extendedCardContent.location.name}</div>
-            <div><span>Origin:</span> {extendedCardContent.origin.name}</div>
-            <div><span>Type:</span> {extendedCardContent.type}</div>
-            <button onClick={hideExtendedCard}>x</button>
-          </article>
-          {characters.map(profile => MakeACard(profile, setExtendedCardClass, setExtendedCardContent))}
+          <div className={extendedCardClass} onClick={hideExtendedCard}>
+            <article className="extendedCard__content" onClick={disablePropagation}>
+              <img src={extendedCardContent.image} />
+              <div className="mt-20">
+                <div><span>Name:</span> {extendedCardContent.name}</div>
+                <div><span>Gender:</span> {extendedCardContent.gender}</div>
+                <div><span>Species:</span> {extendedCardContent.species}</div>
+                <div><span>Status:</span> {extendedCardContent.status}</div>
+                <div>
+                  <span>Location:</span> {extendedCardContent.location.name}
+                </div>
+                <div>
+                  <span>Origin:</span> {extendedCardContent.origin.name}
+                </div>
+                <div><span>Type:</span> {extendedCardContent.type}</div>
+              </div>
+            </article>
+          </div>
+          {characters.map(profile => MakeACard(
+            profile, setExtendedCardClass, setExtendedCardContent))}
         </main>
 
         <footer className="mb-20">
