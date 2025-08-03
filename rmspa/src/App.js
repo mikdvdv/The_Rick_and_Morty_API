@@ -10,6 +10,18 @@ export default function App() {
   const [characters, setCharacters] = useState([]);
   const [pagePrev, setPagePrev] = useState(null);
   const [pageNext, setPageNext] = useState(null);
+  const [extendedCardClass, setExtendedCardClass] = useState(
+    "extendedCard, display-none");
+  const [extendedCardContent, setExtendedCardContent] = useState({
+    gender: undefined,
+    image: undefined,
+    location: {name: undefined, url: undefined},
+    name: undefined,
+    origin: {name: undefined, url: undefined},
+    species: undefined,
+    status: undefined,
+    type: undefined
+  })
 
   useEffect(() => {
     fetch(apiQuery)
@@ -24,10 +36,12 @@ export default function App() {
       });
   }, [apiQuery]);
 
+  function hideExtendedCard(){
+    setExtendedCardClass("extendedCard, display-none");
+  }
+
   return (
     <>
-
-      {/* <div className="content"> */}
 
         <header className="header mt-10">
           <Logo />
@@ -35,30 +49,35 @@ export default function App() {
         </header>
 
         <main className="table">
-          {characters.map(profile => MakeACard(profile))}
+          <article className={extendedCardClass}>
+            <img src={extendedCardContent.image} />
+            <div><span>Name:</span> {extendedCardContent.name}</div>
+            <div><span>Gender:</span> {extendedCardContent.gender}</div>
+            <div><span>Species:</span> {extendedCardContent.species}</div>
+            <div><span>Status:</span> {extendedCardContent.status}</div>
+            <div><span>Location:</span> {extendedCardContent.location.name}</div>
+            <div><span>Origin:</span> {extendedCardContent.origin.name}</div>
+            <div><span>Type:</span> {extendedCardContent.type}</div>
+            <button onClick={hideExtendedCard}>x</button>
+          </article>
+          {characters.map(profile => MakeACard(profile, setExtendedCardClass, setExtendedCardContent))}
         </main>
 
-        <footer>
+        <footer className="mb-20">
           <NavBar setApiQuery={setApiQuery} 
             pagePrev={pagePrev} pageNext={pageNext}/>
         </footer>
-        
 
-      {/* </div> */}
     </>
   );
 }
 
-function MakeACard(profile){
-  function handleClick(){
-    console.log(profile);
-    return (
-      <>
-        <div className='extendedCard'>
 
-        </div>
-      </>
-    )
+function MakeACard(profile, setExtendedCardClass, setExtendedCardContent){
+  function handleClick(){
+    setExtendedCardClass("extendedCard");
+    setExtendedCardContent(profile);
+    console.log(profile);
   }
   return (
     <>
