@@ -118,7 +118,7 @@ function SearchNameBox({setApiQuery}){
   const searchRef = useRef(null);
   return (
     <>
-      <form className="SearchNameBox ml-20"  role="search">
+      <div className="SearchNameBox ml-20"  role="search">
         <input type="search" placeholder="Enter the name of a character"
           ref={searchRef} />
         <button onClick={() => {
@@ -127,7 +127,7 @@ function SearchNameBox({setApiQuery}){
         }}>
           Search
         </button>
-      </form>
+      </div>
       
     </>
   )
